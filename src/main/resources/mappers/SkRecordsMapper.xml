@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.service.dao.SkRecordsMapper">
+  <resultMap id="BaseResultMap" type="com.entity.SkRecords">
+    <result column="recordsId" jdbcType="INTEGER" property="recordsid" />
+    <result column="goodsId" jdbcType="INTEGER" property="goodsid" />
+    <result column="createTime" jdbcType="DATE" property="createtime" />
+    <result column="plusMount" jdbcType="INTEGER" property="plusmount" />
+    <result column="subMount" jdbcType="INTEGER" property="submount" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    recordsId, goodsId, createTime, plusMount, subMount
+  </sql>
+  <select id="selectByExample" parameterType="com.entity.SkRecordsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sk_records
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.entity.SkRecordsExample">
+    delete from sk_records
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entity.SkRecords">
+    insert into sk_records (recordsId, goodsId, createTime, 
+      plusMount, subMount)
+    values (#{recordsid,jdbcType=INTEGER}, #{goodsid,jdbcType=INTEGER}, #{createtime,jdbcType=DATE}, 
+      #{plusmount,jdbcType=INTEGER}, #{submount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.SkRecords">
+    insert into sk_records
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordsid != null">
+        recordsId,
+      </if>
+      <if test="goodsid != null">
+        goodsId,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="plusmount != null">
+        plusMount,
+      </if>
+      <if test="submount != null">
+        subMount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordsid != null">
+        #{recordsid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null">
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=DATE},
+      </if>
+      <if test="plusmount != null">
+        #{plusmount,jdbcType=INTEGER},
+      </if>
+      <if test="submount != null">
+        #{submount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entity.SkRecordsExample" resultType="java.lang.Long">
+    select count(*) from sk_records
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sk_records
+    <set>
+      <if test="record.recordsid != null">
+        recordsId = #{record.recordsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsid != null">
+        goodsId = #{record.goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.createtime != null">
+        createTime = #{record.createtime,jdbcType=DATE},
+      </if>
+      <if test="record.plusmount != null">
+        plusMount = #{record.plusmount,jdbcType=INTEGER},
+      </if>
+      <if test="record.submount != null">
+        subMount = #{record.submount,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sk_records
+    set recordsId = #{record.recordsid,jdbcType=INTEGER},
+      goodsId = #{record.goodsid,jdbcType=INTEGER},
+      createTime = #{record.createtime,jdbcType=DATE},
+      plusMount = #{record.plusmount,jdbcType=INTEGER},
+      subMount = #{record.submount,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.entity.SkRecords">
+    <result column="recordsId" jdbcType="INTEGER" property="recordsid" />
+    <result column="goodsId" jdbcType="INTEGER" property="goodsid" />
+    <result column="createTime" jdbcType="DATE" property="createtime" />
+    <result column="plusMount" jdbcType="INTEGER" property="plusmount" />
+    <result column="subMount" jdbcType="INTEGER" property="submount" />
+  </resultMap>
+  <insert id="insert" parameterType="com.entity.SkRecords">
+    insert into sk_records (recordsId, goodsId, createTime, 
+      plusMount, subMount)
+    values (#{recordsid,jdbcType=INTEGER}, #{goodsid,jdbcType=INTEGER}, #{createtime,jdbcType=DATE}, 
+      #{plusmount,jdbcType=INTEGER}, #{submount,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.SkRecords">
+    insert into sk_records
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="recordsid != null">
+        recordsId,
+      </if>
+      <if test="goodsid != null">
+        goodsId,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="plusmount != null">
+        plusMount,
+      </if>
+      <if test="submount != null">
+        subMount,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="recordsid != null">
+        #{recordsid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null">
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=DATE},
+      </if>
+      <if test="plusmount != null">
+        #{plusmount,jdbcType=INTEGER},
+      </if>
+      <if test="submount != null">
+        #{submount,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+</mapper>

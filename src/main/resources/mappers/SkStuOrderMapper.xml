@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.service.dao.SkStuOrderMapper">
+  <resultMap id="BaseResultMap" type="com.entity.SkStuOrder">
+    <result column="orderId" jdbcType="INTEGER" property="orderid" />
+    <result column="stuId" jdbcType="INTEGER" property="stuid" />
+    <result column="orderTime" jdbcType="VARCHAR" property="ordertime" />
+    <result column="teachComment" jdbcType="VARCHAR" property="teachcomment" />
+    <result column="ampm" jdbcType="VARCHAR" property="ampm" />
+    <result column="today" jdbcType="VARCHAR" property="today" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    orderId, stuId, orderTime, teachComment, ampm, today
+  </sql>
+  <select id="selectByExample" parameterType="com.entity.SkStuOrderExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sk_stu_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.entity.SkStuOrderExample">
+    delete from sk_stu_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entity.SkStuOrder">
+    insert into sk_stu_order (orderId, stuId, orderTime, 
+      teachComment, ampm, today
+      )
+    values (#{orderid,jdbcType=INTEGER}, #{stuid,jdbcType=INTEGER}, #{ordertime,jdbcType=VARCHAR}, 
+      #{teachcomment,jdbcType=VARCHAR}, #{ampm,jdbcType=VARCHAR}, #{today,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.SkStuOrder">
+    insert into sk_stu_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        orderId,
+      </if>
+      <if test="stuid != null">
+        stuId,
+      </if>
+      <if test="ordertime != null">
+        orderTime,
+      </if>
+      <if test="teachcomment != null">
+        teachComment,
+      </if>
+      <if test="ampm != null">
+        ampm,
+      </if>
+      <if test="today != null">
+        today,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="stuid != null">
+        #{stuid,jdbcType=INTEGER},
+      </if>
+      <if test="ordertime != null">
+        #{ordertime,jdbcType=VARCHAR},
+      </if>
+      <if test="teachcomment != null">
+        #{teachcomment,jdbcType=VARCHAR},
+      </if>
+      <if test="ampm != null">
+        #{ampm,jdbcType=VARCHAR},
+      </if>
+      <if test="today != null">
+        #{today,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entity.SkStuOrderExample" resultType="java.lang.Long">
+    select count(*) from sk_stu_order
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sk_stu_order
+    <set>
+      <if test="record.orderid != null">
+        orderId = #{record.orderid,jdbcType=INTEGER},
+      </if>
+      <if test="record.stuid != null">
+        stuId = #{record.stuid,jdbcType=INTEGER},
+      </if>
+      <if test="record.ordertime != null">
+        orderTime = #{record.ordertime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teachcomment != null">
+        teachComment = #{record.teachcomment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ampm != null">
+        ampm = #{record.ampm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.today != null">
+        today = #{record.today,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sk_stu_order
+    set orderId = #{record.orderid,jdbcType=INTEGER},
+      stuId = #{record.stuid,jdbcType=INTEGER},
+      orderTime = #{record.ordertime,jdbcType=VARCHAR},
+      teachComment = #{record.teachcomment,jdbcType=VARCHAR},
+      ampm = #{record.ampm,jdbcType=VARCHAR},
+      today = #{record.today,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.entity.SkStuOrder">
+    <result column="orderId" jdbcType="INTEGER" property="orderid" />
+    <result column="stuId" jdbcType="INTEGER" property="stuid" />
+    <result column="orderTime" jdbcType="VARCHAR" property="ordertime" />
+    <result column="teachComment" jdbcType="VARCHAR" property="teachcomment" />
+    <result column="ampm" jdbcType="VARCHAR" property="ampm" />
+    <result column="today" jdbcType="VARCHAR" property="today" />
+  </resultMap>
+  <insert id="insert" parameterType="com.entity.SkStuOrder">
+    insert into sk_stu_order (orderId, stuId, orderTime, 
+      teachComment, ampm, today
+      )
+    values (#{orderid,jdbcType=INTEGER}, #{stuid,jdbcType=INTEGER}, #{ordertime,jdbcType=VARCHAR}, 
+      #{teachcomment,jdbcType=VARCHAR}, #{ampm,jdbcType=VARCHAR}, #{today,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.SkStuOrder">
+    insert into sk_stu_order
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        orderId,
+      </if>
+      <if test="stuid != null">
+        stuId,
+      </if>
+      <if test="ordertime != null">
+        orderTime,
+      </if>
+      <if test="teachcomment != null">
+        teachComment,
+      </if>
+      <if test="ampm != null">
+        ampm,
+      </if>
+      <if test="today != null">
+        today,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderid != null">
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="stuid != null">
+        #{stuid,jdbcType=INTEGER},
+      </if>
+      <if test="ordertime != null">
+        #{ordertime,jdbcType=VARCHAR},
+      </if>
+      <if test="teachcomment != null">
+        #{teachcomment,jdbcType=VARCHAR},
+      </if>
+      <if test="ampm != null">
+        #{ampm,jdbcType=VARCHAR},
+      </if>
+      <if test="today != null">
+        #{today,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

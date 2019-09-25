@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.service.dao.SkStudentMapper">
+  <resultMap id="BaseResultMap" type="com.entity.SkStudent">
+    <result column="stu_id" jdbcType="INTEGER" property="stuId" />
+    <result column="stuName" jdbcType="VARCHAR" property="stuname" />
+    <result column="stuPassword" jdbcType="VARCHAR" property="stupassword" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="parentNum" jdbcType="INTEGER" property="parentnum" />
+    <result column="courseId" jdbcType="INTEGER" property="courseid" />
+    <result column="orderId" jdbcType="INTEGER" property="orderid" />
+    <result column="realPrice" jdbcType="INTEGER" property="realprice" />
+    <result column="shopId" jdbcType="INTEGER" property="shopid" />
+    <result column="others" jdbcType="VARCHAR" property="others" />
+    <result column="createTime" jdbcType="VARCHAR" property="createtime" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    stu_id, stuName, stuPassword, age, gender, parentNum, courseId, orderId, realPrice, 
+    shopId, `others`, createTime
+  </sql>
+  <select id="selectByExample" parameterType="com.entity.SkStudentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sk_student
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.entity.SkStudentExample">
+    delete from sk_student
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entity.SkStudent">
+    insert into sk_student (stu_id, stuName, stuPassword, 
+      age, gender, parentNum, 
+      courseId, orderId, realPrice, 
+      shopId, `others`, createTime
+      )
+    values (#{stuId,jdbcType=INTEGER}, #{stuname,jdbcType=VARCHAR}, #{stupassword,jdbcType=VARCHAR}, 
+      #{age,jdbcType=INTEGER}, #{gender,jdbcType=VARCHAR}, #{parentnum,jdbcType=INTEGER}, 
+      #{courseid,jdbcType=INTEGER}, #{orderid,jdbcType=INTEGER}, #{realprice,jdbcType=INTEGER}, 
+      #{shopid,jdbcType=INTEGER}, #{others,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.SkStudent">
+    insert into sk_student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stuId != null">
+        stu_id,
+      </if>
+      <if test="stuname != null">
+        stuName,
+      </if>
+      <if test="stupassword != null">
+        stuPassword,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="parentnum != null">
+        parentNum,
+      </if>
+      <if test="courseid != null">
+        courseId,
+      </if>
+      <if test="orderid != null">
+        orderId,
+      </if>
+      <if test="realprice != null">
+        realPrice,
+      </if>
+      <if test="shopid != null">
+        shopId,
+      </if>
+      <if test="others != null">
+        `others`,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stuId != null">
+        #{stuId,jdbcType=INTEGER},
+      </if>
+      <if test="stuname != null">
+        #{stuname,jdbcType=VARCHAR},
+      </if>
+      <if test="stupassword != null">
+        #{stupassword,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="parentnum != null">
+        #{parentnum,jdbcType=INTEGER},
+      </if>
+      <if test="courseid != null">
+        #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null">
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="realprice != null">
+        #{realprice,jdbcType=INTEGER},
+      </if>
+      <if test="shopid != null">
+        #{shopid,jdbcType=INTEGER},
+      </if>
+      <if test="others != null">
+        #{others,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entity.SkStudentExample" resultType="java.lang.Long">
+    select count(*) from sk_student
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sk_student
+    <set>
+      <if test="record.stuId != null">
+        stu_id = #{record.stuId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stuname != null">
+        stuName = #{record.stuname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.stupassword != null">
+        stuPassword = #{record.stupassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.age != null">
+        age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentnum != null">
+        parentNum = #{record.parentnum,jdbcType=INTEGER},
+      </if>
+      <if test="record.courseid != null">
+        courseId = #{record.courseid,jdbcType=INTEGER},
+      </if>
+      <if test="record.orderid != null">
+        orderId = #{record.orderid,jdbcType=INTEGER},
+      </if>
+      <if test="record.realprice != null">
+        realPrice = #{record.realprice,jdbcType=INTEGER},
+      </if>
+      <if test="record.shopid != null">
+        shopId = #{record.shopid,jdbcType=INTEGER},
+      </if>
+      <if test="record.others != null">
+        `others` = #{record.others,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createtime != null">
+        createTime = #{record.createtime,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sk_student
+    set stu_id = #{record.stuId,jdbcType=INTEGER},
+      stuName = #{record.stuname,jdbcType=VARCHAR},
+      stuPassword = #{record.stupassword,jdbcType=VARCHAR},
+      age = #{record.age,jdbcType=INTEGER},
+      gender = #{record.gender,jdbcType=VARCHAR},
+      parentNum = #{record.parentnum,jdbcType=INTEGER},
+      courseId = #{record.courseid,jdbcType=INTEGER},
+      orderId = #{record.orderid,jdbcType=INTEGER},
+      realPrice = #{record.realprice,jdbcType=INTEGER},
+      shopId = #{record.shopid,jdbcType=INTEGER},
+      `others` = #{record.others,jdbcType=VARCHAR},
+      createTime = #{record.createtime,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.entity.SkStudent">
+    <result column="stu_id" jdbcType="INTEGER" property="stuId" />
+    <result column="stuName" jdbcType="VARCHAR" property="stuname" />
+    <result column="stuPassword" jdbcType="VARCHAR" property="stupassword" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
+    <result column="parentNum" jdbcType="INTEGER" property="parentnum" />
+    <result column="courseId" jdbcType="INTEGER" property="courseid" />
+    <result column="orderId" jdbcType="INTEGER" property="orderid" />
+    <result column="realPrice" jdbcType="INTEGER" property="realprice" />
+    <result column="shopId" jdbcType="INTEGER" property="shopid" />
+    <result column="others" jdbcType="VARCHAR" property="others" />
+    <result column="createTime" jdbcType="VARCHAR" property="createtime" />
+  </resultMap>
+  <insert id="insert" parameterType="com.entity.SkStudent">
+    insert into sk_student (stu_id, stuName, stuPassword, 
+      age, gender, parentNum, 
+      courseId, orderId, realPrice, 
+      shopId, `others`, createTime
+      )
+    values (#{stuId,jdbcType=INTEGER}, #{stuname,jdbcType=VARCHAR}, #{stupassword,jdbcType=VARCHAR}, 
+      #{age,jdbcType=INTEGER}, #{gender,jdbcType=VARCHAR}, #{parentnum,jdbcType=INTEGER}, 
+      #{courseid,jdbcType=INTEGER}, #{orderid,jdbcType=INTEGER}, #{realprice,jdbcType=INTEGER}, 
+      #{shopid,jdbcType=INTEGER}, #{others,jdbcType=VARCHAR}, #{createtime,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.SkStudent">
+    insert into sk_student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="stuId != null">
+        stu_id,
+      </if>
+      <if test="stuname != null">
+        stuName,
+      </if>
+      <if test="stupassword != null">
+        stuPassword,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
+      <if test="parentnum != null">
+        parentNum,
+      </if>
+      <if test="courseid != null">
+        courseId,
+      </if>
+      <if test="orderid != null">
+        orderId,
+      </if>
+      <if test="realprice != null">
+        realPrice,
+      </if>
+      <if test="shopid != null">
+        shopId,
+      </if>
+      <if test="others != null">
+        `others`,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="stuId != null">
+        #{stuId,jdbcType=INTEGER},
+      </if>
+      <if test="stuname != null">
+        #{stuname,jdbcType=VARCHAR},
+      </if>
+      <if test="stupassword != null">
+        #{stupassword,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="parentnum != null">
+        #{parentnum,jdbcType=INTEGER},
+      </if>
+      <if test="courseid != null">
+        #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="orderid != null">
+        #{orderid,jdbcType=INTEGER},
+      </if>
+      <if test="realprice != null">
+        #{realprice,jdbcType=INTEGER},
+      </if>
+      <if test="shopid != null">
+        #{shopid,jdbcType=INTEGER},
+      </if>
+      <if test="others != null">
+        #{others,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>

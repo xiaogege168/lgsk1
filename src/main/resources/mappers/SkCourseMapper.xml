@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.service.dao.SkCourseMapper">
+  <resultMap id="BaseResultMap" type="com.entity.SkCourse">
+    <result column="courseID" jdbcType="INTEGER" property="courseid" />
+    <result column="courseTime" jdbcType="VARCHAR" property="coursetime" />
+    <result column="coursePrice" jdbcType="INTEGER" property="courseprice" />
+    <result column="courseContent" jdbcType="VARCHAR" property="coursecontent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    courseID, courseTime, coursePrice, courseContent
+  </sql>
+  <select id="selectByExample" parameterType="com.entity.SkCourseExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from sk_course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.entity.SkCourseExample">
+    delete from sk_course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.entity.SkCourse">
+    insert into sk_course (courseID, courseTime, coursePrice, 
+      courseContent)
+    values (#{courseid,jdbcType=INTEGER}, #{coursetime,jdbcType=VARCHAR}, #{courseprice,jdbcType=INTEGER}, 
+      #{coursecontent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.SkCourse">
+    insert into sk_course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="courseid != null">
+        courseID,
+      </if>
+      <if test="coursetime != null">
+        courseTime,
+      </if>
+      <if test="courseprice != null">
+        coursePrice,
+      </if>
+      <if test="coursecontent != null">
+        courseContent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="courseid != null">
+        #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="coursetime != null">
+        #{coursetime,jdbcType=VARCHAR},
+      </if>
+      <if test="courseprice != null">
+        #{courseprice,jdbcType=INTEGER},
+      </if>
+      <if test="coursecontent != null">
+        #{coursecontent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.entity.SkCourseExample" resultType="java.lang.Long">
+    select count(*) from sk_course
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update sk_course
+    <set>
+      <if test="record.courseid != null">
+        courseID = #{record.courseid,jdbcType=INTEGER},
+      </if>
+      <if test="record.coursetime != null">
+        courseTime = #{record.coursetime,jdbcType=VARCHAR},
+      </if>
+      <if test="record.courseprice != null">
+        coursePrice = #{record.courseprice,jdbcType=INTEGER},
+      </if>
+      <if test="record.coursecontent != null">
+        courseContent = #{record.coursecontent,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update sk_course
+    set courseID = #{record.courseid,jdbcType=INTEGER},
+      courseTime = #{record.coursetime,jdbcType=VARCHAR},
+      coursePrice = #{record.courseprice,jdbcType=INTEGER},
+      courseContent = #{record.coursecontent,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <resultMap id="BaseResultMap" type="com.entity.SkCourse">
+    <result column="courseID" jdbcType="INTEGER" property="courseid" />
+    <result column="courseTime" jdbcType="VARCHAR" property="coursetime" />
+    <result column="coursePrice" jdbcType="INTEGER" property="courseprice" />
+    <result column="courseContent" jdbcType="VARCHAR" property="coursecontent" />
+  </resultMap>
+  <insert id="insert" parameterType="com.entity.SkCourse">
+    insert into sk_course (courseID, courseTime, coursePrice, 
+      courseContent)
+    values (#{courseid,jdbcType=INTEGER}, #{coursetime,jdbcType=VARCHAR}, #{courseprice,jdbcType=INTEGER}, 
+      #{coursecontent,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.entity.SkCourse">
+    insert into sk_course
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="courseid != null">
+        courseID,
+      </if>
+      <if test="coursetime != null">
+        courseTime,
+      </if>
+      <if test="courseprice != null">
+        coursePrice,
+      </if>
+      <if test="coursecontent != null">
+        courseContent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="courseid != null">
+        #{courseid,jdbcType=INTEGER},
+      </if>
+      <if test="coursetime != null">
+        #{coursetime,jdbcType=VARCHAR},
+      </if>
+      <if test="courseprice != null">
+        #{courseprice,jdbcType=INTEGER},
+      </if>
+      <if test="coursecontent != null">
+        #{coursecontent,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+</mapper>
